@@ -7,3 +7,18 @@ See @knuth84 for additional discussion of literate programming.
 ```{r}
 1 + 1
 ```
+
+## Nettoyage de données
+
+### Remplacer les NA par des 0 pour chaque variable qui commence avec x
+
+```{r}
+data <- tibble::tribble( 
+  ~ tag_1, ~ tag_2,
+    0,       1,
+    NA,      NA,
+    1,        1)
+
+data %>%
+  mutate_at(vars(starts_with("tag_")), ~ replace(., is.na(.), 0))
+```
