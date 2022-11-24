@@ -5,6 +5,7 @@ This is a book created from markdown and executable code.
 See @knuth84 for additional discussion of literate programming.
 
 ```{r}
+library("tidyverse")
 1 + 1
 ```
 
@@ -25,10 +26,6 @@ data %>%
   mutate_at(vars(starts_with("tag_")), ~ replace(., is.na(.), 0))
 ```
 
-<<<<<<< HEAD
-## Visualiser ses données
-=======
-
 ### Remplacer les caractères numériques par x dans une string
 
 ```{r}
@@ -37,4 +34,4 @@ gsub("[[:digit:]]+", "", string)
 gsub("[[:digit:]]+", "Y", string)
 ```
 
->>>>>>> 72831cae471fdb8e7e49738d6b546101f852f74d
+## Visualiser ses données
