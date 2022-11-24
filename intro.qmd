@@ -8,7 +8,9 @@ See @knuth84 for additional discussion of literate programming.
 1 + 1
 ```
 
-## Nettoyage de données
+## Importer les données
+
+## Nettoyer les données
 
 ### Remplacer les NA par des 0 pour chaque variable qui commence avec x
 
@@ -22,3 +24,5 @@ data <- tibble::tribble(
 data %>%
   mutate_at(vars(starts_with("tag_")), ~ replace(., is.na(.), 0))
 ```
+
+## Visualiser ses données
