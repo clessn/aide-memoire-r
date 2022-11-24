@@ -23,7 +23,10 @@ data <- tibble::tribble(
     1,        1)
 
 data %>%
-  mutate_at(vars(starts_with("tag_")), ~ replace(., is.na(.), 0))
+  dplyr::mutate(dplyr::across(
+    .cols = tidyselect::starts_with("tag_"),
+    .fns = ~ replace(., is.na(.), 0)
+  ))
 ```
 
 ### Remplacer les caractères numériques par x dans une string
