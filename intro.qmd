@@ -37,4 +37,18 @@ gsub("[[:digit:]]+", "", string)
 gsub("[[:digit:]]+", "Y", string)
 ```
 
+### Obtenir le nombre de NA dans une colonne
+
+```{r}
+data <- tibble::tribble( 
+  ~ tag_1, ~ tag_2,
+    0,       1,
+    NA,      NA,
+    1,        1,
+    4,        NA)
+
+sum(is.na(data$tag_1))
+sum(is.na(data$tag_2))
+```
+
 ## Visualiser ses données
