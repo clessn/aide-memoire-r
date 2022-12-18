@@ -1,0 +1,16 @@
+{
+  "hash": "f115750f9b00c36580cc599d8c92f039",
+  "result": {
+    "markdown": "# Introduction\n\nThis is a book created from markdown and executable code.\n\nSee @knuth84 for additional discussion of literate programming.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(\"tidyverse\")\n```\n\n::: {.cell-output .cell-output-stderr}\n```\n-- Attaching packages --------------------------------------- tidyverse 1.3.2 --\nv ggplot2 3.4.0      v purrr   0.3.4 \nv tibble  3.1.8      v dplyr   1.0.10\nv tidyr   1.2.1      v stringr 1.4.1 \nv readr   2.1.2      v forcats 0.5.2 \n-- Conflicts ------------------------------------------ tidyverse_conflicts() --\nx dplyr::filter() masks stats::filter()\nx dplyr::lag()    masks stats::lag()\n```\n:::\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n\n\n## Importer les données\n\n## Nettoyer les données\n\n### Remplacer les NA par des 0 pour chaque variable qui commence avec x\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndata <- tibble::tribble( \n  ~ tag_1, ~ tag_2,\n    0,       1,\n    NA,      NA,\n    1,        1)\n\ndata %>%\n  dplyr::mutate(dplyr::across(\n    .cols = tidyselect::starts_with(\"tag_\"),\n    .fns = ~ replace(., is.na(.), 0)\n  ))\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n# A tibble: 3 x 2\n  tag_1 tag_2\n  <dbl> <dbl>\n1     0     1\n2     0     0\n3     1     1\n```\n:::\n:::\n\n\n### Remplacer les caractères numériques par x dans une string\n\n\n::: {.cell}\n\n```{.r .cell-code}\nstring <- \"99+ R hacks\"\ngsub(\"[[:digit:]]+\", \"\", string)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] \"+ R hacks\"\n```\n:::\n\n```{.r .cell-code}\ngsub(\"[[:digit:]]+\", \"Y\", string)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] \"Y+ R hacks\"\n```\n:::\n:::\n\n\n### Obtenir le nombre de NA dans une colonne\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndata <- tibble::tribble( \n  ~ tag_1, ~ tag_2,\n    0,       1,\n    NA,      NA,\n    1,        1,\n    4,        NA)\n\nsum(is.na(data$tag_1))\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 1\n```\n:::\n\n```{.r .cell-code}\nsum(is.na(data$tag_2))\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n\n\n### Modifier le préfixe de toutes les colonnes commençant par le même préfixe\n\nDans l'exemple, l'objectif est de modifier le préfixe des colonnes dont le nom commence par **tag** pour que ce préfixe devienne **new_prefix**. \n\n\n::: {.cell}\n\n```{.r .cell-code}\ndata <- tibble::tribble( \n  ~ tag_1, ~ tag_2, ~not_tag_3,\n    0,       1,       4,\n    NA,      NA,      5,\n    1,        1,      8,\n    4,        NA,     2)\ndata %>%\n  rename_at(vars(starts_with(\"tag\")),\n            ~str_replace(., \"tag\", \"new_prefix\"))\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n# A tibble: 4 x 3\n  new_prefix_1 new_prefix_2 not_tag_3\n         <dbl>        <dbl>     <dbl>\n1            0            1         4\n2           NA           NA         5\n3            1            1         8\n4            4           NA         2\n```\n:::\n:::\n\n\n## Visualiser ses données\n",
+    "supporting": [
+      "intro_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

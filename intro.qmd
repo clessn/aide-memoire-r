@@ -51,4 +51,23 @@ sum(is.na(data$tag_1))
 sum(is.na(data$tag_2))
 ```
 
+### Modifier le préfixe de toutes les colonnes commençant par le même préfixe
+
+Dans l'exemple, l'objectif est de modifier le préfixe des colonnes dont le nom commence par **tag** pour que ce préfixe devienne **new_prefix**.
+
+```{r}
+data <- tibble::tribble( 
+  ~ tag_1, ~ tag_2, ~not_tag_3,
+    0,       1,       4,
+    NA,      NA,      5,
+    1,        1,      8,
+    4,        NA,     2)
+
+data
+
+data %>%
+  rename_at(vars(starts_with("tag")),
+            ~str_replace(., "tag", "new_prefix"))
+```
+
 ## Visualiser ses données
